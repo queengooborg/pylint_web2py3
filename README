@@ -1,10 +1,11 @@
 A dead simple pylint plugin to avoid a lot of false positives when linting
 web2py applications.
 
-This version uses fresh Pylint API
-
+This version uses fresh Pylint API (>=1.2).
+Also it needs latest development version of Astroid (base Pylint library),
+particulary version after commit f0cdb29 (2014-11-10) which fixed module path resolution bug.
 
 To enable this plugin:
-* Add option `--load-plugins=pylint_web2py`
+- Add option `--load-plugins=pylint_web2py`
 or
-* Add `load-plugins=pylint_web2py` to your .pylintrc
+- Add `load-plugins=pylint_web2py` to your .pylintrc
