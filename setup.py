@@ -13,7 +13,7 @@ setup(
     description=_short_description,
     version=_version,
     packages=_packages,
-    install_requires=['pylint<1.0'],
+    install_requires=['pylint>=1.2.0'],
     license='GPLv2',
     keywords='pylint web2py plugin',
 )

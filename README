@@ -1,2 +1,10 @@
 A dead simple pylint plugin to avoid a lot of false positives when linting
 web2py applications.
+
+This version uses fresh Pylint API
+
+
+To enable this plugin:
+* Add option `--load-plugins=pylint_web2py`
+or
+* Add `load-plugins=pylint_web2py` to your .pylintrc
