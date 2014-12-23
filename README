@@ -1,7 +1,8 @@
-A dead simple pylint plugin to avoid a lot of false positives when linting
+Pylint plugin to avoid a lot of false positives when linting
 web2py applications.
+It is aware of web2py predefined objects and special module paths.
 
 To enable this plugin:
-- Add option `--load-plugins=pylint_web2py`
+- Add `--load-plugins=pylint_web2py2` to pylint options
 or
-- Add `load-plugins=pylint_web2py` to your .pylintrc
+- Add `load-plugins=pylint_web2py2` to your .pylintrc

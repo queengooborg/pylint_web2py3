@@ -1,15 +1,14 @@
 from setuptools import setup, find_packages
 
-_version = '0.1.2'
+_version = '0.3'
 _packages = find_packages()
-_short_description = 'pylint-web2py is a Pylint plugin to help reduce false ' \
-    'positives due to web2py implicit imports'
+_short_description = 'pylint-web2py2 is a disciple of pylint-web2py with better web2py support'
 
 setup(
-    name='pylint-web2py',
-    url='https://github.com/dsludwig/pylint-web2py',
-    author='Derek Ludwig',
-    author_email='derek.s.ludwig@gmail.com',
+    name='pylint-web2py2',
+    url='https://github.com/flagist0/pylint-web2py',
+    author='Alexander Presnyakov',
+    author_email='flagist0@gmail.com',
     description=_short_description,
     version=_version,
     packages=_packages,
