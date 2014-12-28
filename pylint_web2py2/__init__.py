@@ -16,12 +16,14 @@ from os.path import join, splitext
 import os
 import re
 import sys
-import pdb
+import ipdb
 
-# This dummy code is copied from gluon/__init__.py
-fake_code = '''
-#pylint: disable=unused-wildcard-import
+is_pythonpath_modified = False
 
+def web2py_transform(module):
+    'Add imports and some default objects, add custom module paths to pythonpath'
+    # This dummy code is copied from gluon/__init__.py
+    fake_code = '''
 from gluon.globals import current
 from gluon.html import *
 from gluon.validators import *
@@ -43,30 +45,23 @@ cache = Cache(request)
 T = translator(request)
 '''
 
-is_pythonpath_modified = False
-
-#Dictionary of lists, key (model name) -> val (model locals)
-models_locals = {}
-
-def web2py_transform(module):
-    'Add imports and some default objects, add custom module paths to pythonpath'
     if module.file:
         #Check if this file belongs to web2py
         match = re.match(r'(.+?)/applications/(.+?)/', module.file)
         if match:
-            #Add web2py modules paths to PYTHONPATH
-            #This block will be executed only once
             if not is_pythonpath_modified:
+                #Add web2py modules paths to PYTHONPATH
                 add_custom_module_paths(match.group(1), match.group(2))
-                app_models_path = join(match.group(1), 'applications', match.group(2), 'models')
-                collect_model_locals(app_models_path)
-                #Add locals from models
-                for model in models_locals.keys():
-                    if model != module.name:
-                        module.locals.update(models_locals[model])
+
+                #If this is controller file, add code to import locals from models
+                controller_match = re.match(r'(.+?)/controllers/', module.file)
+                if controller_match:
+                    app_models_path = join(controller_match.group(1), 'models')
+                    fake_code += gen_models_import_code(app_models_path)
 
                 fake = AstroidBuilder(MANAGER).string_build(fake_code)
                 module.locals.update(fake.locals)
+
 
 def register(_):
     'Register web2py transformer, called by pylint'
@@ -79,23 +74,20 @@ def add_custom_module_paths(web2py_dir, app_name):
     gluon_path = join(web2py_dir, 'gluon')
     site_packages_path = join(web2py_dir, 'site-packages')
     app_modules_path = join(web2py_dir, 'applications', app_name, 'modules')
+    app_models_path = join(web2py_dir, 'applications', app_name, 'models') #Add models to import them them in controllers
 
-    for module_path in [gluon_path, site_packages_path, app_modules_path, web2py_dir]:
+    for module_path in [gluon_path, site_packages_path, app_modules_path, app_models_path, web2py_dir]:
         sys.path.append(module_path)
     is_pythonpath_modified = True
 
-def collect_model_locals(app_models_path):
-    '''
-    Extract locals defined in model files and save them to models_locals per each model file
-    '''
-    global models_locals
-    #Only top level models
-    model_files = [m for m in os.listdir(app_models_path) if re.match(r'.+?\.py$', m)]
+
+def gen_models_import_code(app_models_path):
+    model_files = os.listdir(app_models_path)
+    model_files = [model_file for model_file in model_files if re.match(r'.+?\.py', model_file)] #Only top-level models
     model_files = sorted(model_files) #Models are executed in alphabetical order
+    model_names = [re.match(r'^(.+?)\.py$', model_file).group(1) for model_file in model_files]
 
-    for model_file in model_files:
-        module_name = splitext(model_file)[0]
-        module_path = join(app_models_path, model_file)
+    code = '\n'.join(['from %s import *' % model_name for model_name in model_names])
+    print code
 
-        module_ast = AstroidBuilder(MANAGER).file_build(module_path, module_name)
-        models_locals[module_name] = module_ast.locals
+    return code
