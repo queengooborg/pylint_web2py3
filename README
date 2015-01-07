@@ -1,7 +1,12 @@
-Pylint plugin to avoid a lot of false positives when linting
-web2py applications.
-It is aware of web2py predefined objects and special module paths.
-Also it adds variables from models to controllers.
+This Pylint plugin minimizes Pylint's complaints about web2py code.
+Web2py executes user code in special environment populated with predefined objects and types and with objects defined in model files.
+Also it has magic import mechanism which knows some special places where to find modules.
+
+Pylint doesn't know about these details -- its parser is unable to find these objects and modules, resulting in a flood of laments.
+This plugin:
+- adds variables defined in models to other models' and controllers' scope
+- adds definition of some predefined global objects to models and controllers
+- adds web2py module paths to sys.path, so pylint is able to find them
 
 To enable this plugin:
 - Add `--load-plugins=pylint_web2py2` to pylint options

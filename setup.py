@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-_version = '0.3'
+_version = '0.8'
 _packages = find_packages()
 _short_description = 'pylint-web2py2 is a disciple of pylint-web2py with better web2py support'
 
