@@ -2,11 +2,11 @@ from setuptools import setup, find_packages
 
 _version = '0.8'
 _packages = find_packages()
-_short_description = 'pylint-web2py2 is a disciple of pylint-web2py with better web2py support'
+_short_description = 'pylint_web2py2 is a disciple of pylint-web2py with better web2py support'
 
 setup(
-    name='pylint-web2py2',
-    url='https://github.com/flagist0/pylint-web2py',
+    name='pylint_web2py2',
+    url='https://github.com/flagist0/pylint_web2py2',
     author='Alexander Presnyakov',
     author_email='flagist0@gmail.com',
     description=_short_description,
