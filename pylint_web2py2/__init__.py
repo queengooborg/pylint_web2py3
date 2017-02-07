@@ -141,7 +141,7 @@ Add models path too to be able to import it from the fake code
     def _fill_app_model_names(self, app_models_path):
         'Save model names for later use'
         model_files = os.listdir(app_models_path)
-        model_files = [model_file for model_file in model_files if re.match(r'.+?\.py', model_file)] #Only top-level models
+        model_files = [model_file for model_file in model_files if re.match(r'.+?\.py$', model_file)] #Only top-level models
         model_files = sorted(model_files) #Models are executed in alphabetical order
         self.app_model_names = [re.match(r'^(.+?)\.py$', model_file).group(1) for model_file in model_files]
 
