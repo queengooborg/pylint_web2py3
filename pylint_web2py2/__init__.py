@@ -182,7 +182,7 @@ class MessageSniffer(PyLinter):
         self.fake_node = fake_node
         self.unused = set()
 
-    def add_message(self, msg_descr, line=None, node=None, args=None, confidence=UNDEFINED):
+    def add_message(self, msg_descr, line=None, node=None, args=None, confidence=UNDEFINED, col_offset=None):
         'Message interceptor'
         if msg_descr == 'unused-wildcard-import':
             self.unused.add(args)
