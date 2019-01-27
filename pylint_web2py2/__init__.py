@@ -50,6 +50,8 @@ from gluon.cache import Cache
 from gluon.languages import translator
 from gluon.tools import Auth, Crud, Mail, Service, PluginManager
 
+SQLDB = DAL
+
 # API objects
 request = Request()
 response = Response()
