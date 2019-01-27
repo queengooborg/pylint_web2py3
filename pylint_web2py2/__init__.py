@@ -12,6 +12,7 @@ This plugin:
 from astroid import MANAGER, scoped_nodes
 from astroid.builder import AstroidBuilder
 from pylint.lint import PyLinter
+from pylint.checkers.base import ComparisonChecker
 from pylint.checkers.variables import VariablesChecker
 from pylint.interfaces import UNDEFINED
 from pylint.utils import PyLintASTWalker
@@ -159,7 +160,9 @@ and then use them to remove unused imports.
         sniffer = MessageSniffer() #Our linter substitution
         walker = PyLintASTWalker(sniffer)
         var_checker = VariablesChecker(sniffer)
+        comp_checker = ComparisonChecker(sniffer)
         walker.add_checker(var_checker)
+        walker.add_checker(comp_checker)
 
         #Collect unused import messages
         sniffer.set_fake_node(fake_node)
@@ -174,7 +177,7 @@ and then use them to remove unused imports.
         return module_node
 
 class MessageSniffer(PyLinter):
-    'Special class to mimic PyLinter to intercept messages from checkers. Here we use it to collect info about unused imports'
+    'Special class to mimic PyLinter to intercept messages from checkers. Here we use it to collect info about unused imports and singleton comparsons in db queries'
     def __init__(self):
         super(MessageSniffer, self).__init__()
         self.unused = set()
@@ -203,5 +206,9 @@ class MessageSniffer(PyLinter):
 
             if sym_name in self.fake_node.globals:
                 self.unused.add(sym_name)
+
+        elif msg_descr == 'singleton-comparison':
+            if node.as_string().startswith("db"):
+                pass # XXX Ignore singleton here
 
 transformer = Web2PyTransformer()
