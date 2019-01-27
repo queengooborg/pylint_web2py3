@@ -19,7 +19,6 @@ from os.path import join, splitext
 import os
 import re
 import sys
-import ipdb
 
 def register(_):
     'Register web2py transformer, called by pylint'
