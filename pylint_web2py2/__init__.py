@@ -36,7 +36,7 @@ def web2py_transform(module):
 
 class Web2PyTransformer(object):
     'Transforms web2py modules code'
-    # This dummy code is copied from gluon/__init__.py
+    # This dummy code is copied from gluon/__init__.py and gluon/compileapp.py
     fake_code = '''
 from gluon.html import *
 from gluon.validators import *
