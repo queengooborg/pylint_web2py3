@@ -43,7 +43,7 @@ from gluon.validators import *
 from gluon.http import redirect, HTTP
 from gluon.dal import DAL, Field
 from gluon.sqlhtml import SQLFORM, SQLTABLE
-from gluon.compileapp import LOAD
+from gluon.compileapp import LOAD, local_import_aux
 
 from gluon.globals import Request, Response, Session
 from gluon.cache import Cache
@@ -56,6 +56,8 @@ response = Response()
 session = Session()
 cache = Cache(request)
 T = translator(request)
+local_import = lambda name, reload=False, app=request.application:\
+        local_import_aux(name, reload, app)
 '''
 
     def __init__(self):
