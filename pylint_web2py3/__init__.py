@@ -1,3 +1,15 @@
+## -*- coding: utf-8 -*-
+
+version_info = (0, 9, 0)
+__name__ = 'pylint_web2py3'
+__doc__ = 'pylint_web2py3 is a disciple of pylint-web2py and pylint_web2py2 with better web2py support'
+__author__ = ['Vinyl Darkscratch']
+__version__ = '.'.join([str(i) for i in version_info])
+__license__ = 'GPL'
+__maintainer__ = 'Vinyl Darkscratch'
+__email__ = ['vinyldarkscratch@gooborg.com']
+__status__ = 'Beta'
+
 '''
 This plugin minimizes Pylint's complaints about web2py code.
 Web2py executes user code in special environment populated with predefined objects and types and with objects defined in model files.

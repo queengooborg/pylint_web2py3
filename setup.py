@@ -1,19 +1,29 @@
+# -*- coding: utf-8 -*-
+import pylint_web2py3
 from setuptools import setup, find_packages
 
-_version = '0.8'
 _packages = find_packages()
-_short_description = 'pylint_web2py2 is a disciple of pylint-web2py with better web2py support'
+
+with open('README.md') as f:
+    readme = f.read()
+with open('requirements.txt') as f:
+    requires = [line.strip() for line in f if line.strip()]
 
 setup(
-    name='pylint_web2py2',
-    url='https://github.com/flagist0/pylint_web2py2',
-    author='Alexander Presnyakov',
-    author_email='flagist0@gmail.com',
-    description=_short_description,
-    version=_version,
+    name=pylint_web2py3.__name__,
+    url='https://github.com/vinyldarkscratch/pylint_web2py3',
+    version=pylint_web2py3.__version__,
+    description=pylint_web2py3.__docs__,
+    long_description=readme,
+    long_description_content_type="text/markdown",
+    author=pylint_web2py3.__author__[0],
+    author_email=pylint_web2py3.__email__[0],
+    maintainer=pylint_web2py3.__maintainer__,
+    maintainer_email=pylint_web2py3.__email__[0],
+    license='http://www.gnu.org/copyleft/gpl.html',
+    keywords='pylint web2py plugin'
+    platforms=['any'],
     packages=_packages,
-    install_requires=['astroid>=1.3.0',
-                      'pylint>=1.2.0'],
-    license='GPLv2',
-    keywords='pylint web2py plugin',
+    install_requires=requires,
+    zip_safe=False,
 )
