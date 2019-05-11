@@ -21,7 +21,7 @@ setup(
     maintainer=pylint_web2py3.__maintainer__,
     maintainer_email=pylint_web2py3.__email__[0],
     license='http://www.gnu.org/copyleft/gpl.html',
-    keywords='pylint web2py plugin'
+    keywords='pylint web2py plugin',
     platforms=['any'],
     packages=_packages,
     install_requires=requires,
