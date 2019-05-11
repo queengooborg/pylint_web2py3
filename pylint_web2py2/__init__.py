@@ -38,9 +38,11 @@ def web2py_transform(module):
 class Web2PyTransformer(object):
     'Transforms web2py modules code'
     # This dummy code is copied from gluon/__init__.py and gluon/compileapp.py
+    # First two lines are copied from ALL array in gluon.html, gluon.validators, and pydal.validators
     fake_code = '''
-from gluon.html import *
-from gluon.validators import *
+from gluon.html import A, ASSIGNJS, B, BEAUTIFY, BODY, BR, BUTTON, CENTER, CAT, CODE, COL, COLGROUP, DIV, EM, EMBED, FIELDSET, FORM, H1, H2, H3, H4, H5, H6, HEAD, HR, HTML, I, IFRAME, IMG, INPUT, LABEL, LEGEND, LI, LINK, OL, UL, MARKMIN, MENU, META, OBJECT, ON, OPTION, P, PRE, SCRIPT, OPTGROUP, SELECT, SPAN, STRONG, STYLE, TABLE, TAG, TD, TEXTAREA, TH, THEAD, TBODY, TFOOT, TITLE, TR, TT, URL, XHTML, XML, xmlescape, embed64
+from gluon.validators import ANY_OF, CLEANUP, CRYPT, IS_ALPHANUMERIC, IS_DATE_IN_RANGE, IS_DATE, IS_DATETIME_IN_RANGE, IS_DATETIME, IS_DECIMAL_IN_RANGE, IS_EMAIL, IS_LIST_OF_EMAILS, IS_EMPTY_OR, IS_EXPR, IS_FILE, IS_FLOAT_IN_RANGE, IS_IMAGE, IS_IN_DB, IS_IN_SET, IS_INT_IN_RANGE, IS_IPV4, IS_IPV6, IS_IPADDRESS, IS_LENGTH, IS_LIST_OF, IS_LOWER, IS_MATCH, IS_EQUAL_TO, IS_NOT_EMPTY, IS_NOT_IN_DB, IS_NULL_OR, IS_SLUG, IS_STRONG, IS_TIME, IS_UPLOAD_FILENAME, IS_UPPER, IS_URL, IS_JSON, simple_hash, get_digest, Validator, ValidationError, translate
+
 from gluon.http import redirect, HTTP
 from gluon.dal import DAL, Field
 from gluon.sqlhtml import SQLFORM, SQLTABLE
