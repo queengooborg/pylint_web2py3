@@ -13,7 +13,7 @@ setup(
     name=pylint_web2py3.__name__,
     url='https://github.com/vinyldarkscratch/pylint_web2py3',
     version=pylint_web2py3.__version__,
-    description=pylint_web2py3.__docs__,
+    description=pylint_web2py3.__doc__,
     long_description=readme,
     long_description_content_type="text/markdown",
     author=pylint_web2py3.__author__[0],
