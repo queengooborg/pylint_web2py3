@@ -1,5 +1,17 @@
 ## -*- coding: utf-8 -*-
 
+'''
+This plugin minimizes Pylint's complaints about web2py code.
+Web2py executes user code in special environment populated with predefined objects and types and with objects defined in model files.
+Also it has magic import mechanism which knows some special places where to find modules.
+
+Pylint doesn't know about these details -- its parser is unable to find these objects and modules, resulting in a flood of laments.
+This plugin:
+- adds variables defined in models to other models' and controllers' scope
+- adds definition of some predefined global objects to models and controllers
+- adds web2py module paths to PYTHONPATH
+'''
+
 version_info = (0, 9, 0)
 __name__ = 'pylint_web2py3'
 __doc__ = 'pylint_web2py3 is a disciple of pylint-web2py and pylint_web2py2 with better web2py support'
@@ -21,18 +33,6 @@ from os.path import join, splitext
 import os
 import re
 import sys
-
-'''
-This plugin minimizes Pylint's complaints about web2py code.
-Web2py executes user code in special environment populated with predefined objects and types and with objects defined in model files.
-Also it has magic import mechanism which knows some special places where to find modules.
-
-Pylint doesn't know about these details -- its parser is unable to find these objects and modules, resulting in a flood of laments.
-This plugin:
-- adds variables defined in models to other models' and controllers' scope
-- adds definition of some predefined global objects to models and controllers
-- adds web2py module paths to PYTHONPATH
-'''
 
 def register(_):
     'Register web2py transformer, called by pylint'
