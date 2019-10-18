@@ -31,7 +31,7 @@ from pylint.lint import PyLinter
 from pylint.checkers.base import ComparisonChecker
 from pylint.checkers.variables import VariablesChecker
 from pylint.interfaces import UNDEFINED
-from pylint.utils import PyLintASTWalker
+from pylint.utils import ASTWalker
 
 def register(_):
     'Register web2py transformer, called by pylint'
@@ -172,7 +172,7 @@ and then use them to remove unused imports.
         '''
         #Needed for removal of unused import messages
         sniffer = MessageSniffer() #Our linter substitution
-        walker = PyLintASTWalker(sniffer)
+        walker = ASTWalker(sniffer)
         var_checker = VariablesChecker(sniffer)
         comp_checker = ComparisonChecker(sniffer)
         walker.add_checker(var_checker)
