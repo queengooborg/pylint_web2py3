@@ -12,16 +12,19 @@ This plugin:
 - adds web2py module paths to PYTHONPATH
 '''
 
-version_info = (0, 9, 0)
+VERSION_INFO = (0, 9, 0)
 __name__ = 'pylint_web2py3'
 __doc__ = 'pylint_web2py3 is a disciple of pylint-web2py and pylint_web2py2 with better web2py support'
 __author__ = ['Vinyl Darkscratch']
-__version__ = '.'.join([str(i) for i in version_info])
+__version__ = '.'.join([str(i) for i in VERSION_INFO])
 __license__ = 'GPL'
 __maintainer__ = 'Vinyl Darkscratch'
 __email__ = ['vinyldarkscratch@gooborg.com']
 __status__ = 'Beta'
 
+import os
+import re
+import sys
 from astroid import MANAGER, scoped_nodes
 from astroid.builder import AstroidBuilder
 from pylint.lint import PyLinter
@@ -29,9 +32,6 @@ from pylint.checkers.base import ComparisonChecker
 from pylint.checkers.variables import VariablesChecker
 from pylint.interfaces import UNDEFINED
 from pylint.utils import PyLintASTWalker
-import os
-import re
-import sys
 
 def register(_):
     'Register web2py transformer, called by pylint'
@@ -191,7 +191,7 @@ and then use them to remove unused imports.
         return module_node
 
 class MessageSniffer(PyLinter):
-    'Special class to mimic PyLinter to intercept messages from checkers. Here we use it to collect info about unused imports and singleton comparsons in db queries'
+    '''Special class to mimic PyLinter to intercept messages from checkers. Here we use it to collect info about unused imports and singleton comparsons in db queries'''
     def __init__(self):
         super(MessageSniffer, self).__init__()
         self.unused = set()
