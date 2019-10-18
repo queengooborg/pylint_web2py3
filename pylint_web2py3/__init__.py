@@ -29,7 +29,6 @@ from pylint.checkers.base import ComparisonChecker
 from pylint.checkers.variables import VariablesChecker
 from pylint.interfaces import UNDEFINED
 from pylint.utils import PyLintASTWalker
-from os.path import join, splitext
 import os
 import re
 import sys
@@ -114,10 +113,10 @@ Add web2py module paths to sys.path
 Add models path too to be able to import it from the fake code
         '''
         if not self.is_pythonpath_modified:
-            gluon_path = join(web2py_path, 'gluon')
-            site_packages_path = join(web2py_path, 'site-packages')
-            app_modules_path = join(web2py_path, 'applications', app_name, 'modules')
-            app_models_path = join(web2py_path, 'applications', app_name, 'models') #Add models to import them them in controllers
+            gluon_path = os.path.join(web2py_path, 'gluon')
+            site_packages_path = os.path.join(web2py_path, 'site-packages')
+            app_modules_path = os.path.join(web2py_path, 'applications', app_name, 'modules')
+            app_models_path = os.path.join(web2py_path, 'applications', app_name, 'models') #Add models to import them them in controllers
 
             for module_path in [gluon_path, site_packages_path, app_modules_path, app_models_path, web2py_path]:
                 sys.path.append(module_path)
