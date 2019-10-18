@@ -34,11 +34,11 @@ from pylint.interfaces import UNDEFINED
 from pylint.utils import ASTWalker
 
 def register(_):
-    'Register web2py transformer, called by pylint'
+    '''Register web2py transformer, called by pylint'''
     MANAGER.register_transform(scoped_nodes.Module, web2py_transform)
 
 def web2py_transform(module):
-    'Add imports and some default objects, add custom module paths to pythonpath'
+    '''Add imports and some default objects, add custom module paths to pythonpath'''
 
     if module.file:
         #Check if this file belongs to web2py
@@ -48,7 +48,7 @@ def web2py_transform(module):
             return transformer.transform_module(module, web2py_path, app_name, subfolder)
 
 class Web2PyTransformer(object):
-    'Transforms web2py modules code'
+    '''Transforms web2py modules code'''
     # This dummy code is copied from gluon/__init__.py and gluon/compileapp.py
     # First two lines are copied from ALL array in gluon.html, gluon.validators, and pydal.validators
     fake_code = '''
@@ -87,7 +87,7 @@ local_import = lambda name, reload=False, app=request.application:\
         self.top_level = True
 
     def transform_module(self, module_node, web2py_path, app_name, subfolder):
-        'Determine the file type (model, controller or module) and transform it'
+        '''Determine the file type (model, controller or module) and transform it'''
         if not self.top_level:
             return module_node
 
@@ -108,10 +108,7 @@ local_import = lambda name, reload=False, app=request.application:\
         return transformed_module
 
     def _add_paths(self, web2py_path, app_name):
-        '''
-Add web2py module paths to sys.path
-Add models path too to be able to import it from the fake code
-        '''
+        '''Add web2py module paths models path to sys.path to be able to import it from the fake code'''
         if not self.is_pythonpath_modified:
             gluon_path = os.path.join(web2py_path, 'gluon')
             site_packages_path = os.path.join(web2py_path, 'site-packages')
@@ -127,7 +124,7 @@ Add models path too to be able to import it from the fake code
 
 
     def _trasform_model(self, module_node):
-        'Add globals from fake code + import code from previous (in alphabetical order) models'
+        '''Add globals from fake code + import code from previous (in alphabetical order) models'''
         fake_code = self.fake_code + self._gen_models_import_code(module_node.name)
         fake = AstroidBuilder(MANAGER).string_build(fake_code)
         module_node.locals.update(fake.globals)
@@ -136,7 +133,7 @@ Add models path too to be able to import it from the fake code
         return module_node
 
     def _transform_controller(self, module_node):
-        'Add globals from fake code + import models'
+        '''Add globals from fake code + import models'''
         fake_code = self.fake_code + self._gen_models_import_code()
 
         fake = AstroidBuilder(MANAGER).string_build(fake_code)
@@ -147,7 +144,7 @@ Add models path too to be able to import it from the fake code
         return module_node
 
     def _gen_models_import_code(self, current_model=None):
-        'Generate import code for models (only previous in alphabetical order if called by model)'
+        '''Generate import code for models (only previous in alphabetical order if called by model)'''
         code = ''
         for model_name in self.app_model_names:
             if current_model and model_name == current_model:
@@ -157,19 +154,17 @@ Add models path too to be able to import it from the fake code
         return code
 
     def _fill_app_model_names(self, app_models_path):
-        'Save model names for later use'
+        '''Save model names for later use'''
         model_files = os.listdir(app_models_path)
         model_files = [model_file for model_file in model_files if re.match(r'.+?\.py$', model_file)] #Only top-level models
         model_files = sorted(model_files) #Models are executed in alphabetical order
         self.app_model_names = [re.match(r'^(.+?)\.py$', model_file).group(1) for model_file in model_files]
 
     def _remove_unused_imports(self, module_node, fake_node):
-        '''
-We import objects from fake code and from models, so pylint doesn't complain about undefined objects.
+        '''We import objects from fake code and from models, so pylint doesn't complain about undefined objects.
 But now it complains a lot about unused imports.
 We cannot suppress it, so we call VariableChecker with fake linter to intercept and collect all such error messages,
-and then use them to remove unused imports.
-        '''
+and then use them to remove unused imports.'''
         #Needed for removal of unused import messages
         sniffer = MessageSniffer() #Our linter substitution
         walker = ASTWalker(sniffer)
@@ -199,12 +194,12 @@ class MessageSniffer(PyLinter):
         self.fake_node = None
 
     def set_fake_node(self, fake_node):
-        'We need fake node to distinguish real unused imports in user code from unused imports induced by our fake code'
+        '''We need fake node to distinguish real unused imports in user code from unused imports induced by our fake code'''
         self.fake_node = fake_node
         self.unused = set()
 
     def add_message(self, msg_descr, line=None, node=None, args=None, confidence=UNDEFINED, col_offset=None):
-        'Message interceptor'
+        '''Message interceptor'''
         if msg_descr == 'unused-wildcard-import':
             self.unused.add(args)
 
