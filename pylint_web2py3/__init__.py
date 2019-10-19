@@ -94,13 +94,9 @@ local_import = lambda name, reload=False, app=request.application:\
 		#Add web2py modules paths to sys.path
 		self._add_paths(web2py_path, app_name)
 
-		if subfolder == 'models':
+		if subfolder in ['models', 'controllers']:
 			self.top_level = False
-			transformed_module = self._trasform_model(module_node)
-			self.top_level = True
-		elif subfolder == 'controllers':
-			self.top_level = False
-			transformed_module = self._transform_controller(module_node)
+			transformed_module = self._trasform(module_node, subfolder)
 			self.top_level = True
 		else:
 			transformed_module = module_node
@@ -123,21 +119,11 @@ local_import = lambda name, reload=False, app=request.application:\
 			self.is_pythonpath_modified = True
 
 
-	def _trasform_model(self, module_node):
-		'''Add globals from fake code + import code from previous (in alphabetical order) models'''
-		fake_code = self.fake_code + self._gen_models_import_code(module_node.name)
+	def _trasform(self, module_node, subfolder):
+		'''Add globals from fake code + import code from models'''
+		models_import = self._gen_models_import_code(module_node.name if subfolder == 'models' else None)
+		fake_code = self.fake_code + models_import
 		
-		fake = AstroidBuilder(MANAGER).string_build(fake_code)
-		module_node.locals.update(fake.globals)
-
-		module_node = self._remove_unused_imports(module_node, fake)
-		
-		return module_node
-
-	def _transform_controller(self, module_node):
-		'''Add globals from fake code + import models'''
-		fake_code = self.fake_code + self._gen_models_import_code()
-
 		fake = AstroidBuilder(MANAGER).string_build(fake_code)
 		module_node.locals.update(fake.globals)
 
