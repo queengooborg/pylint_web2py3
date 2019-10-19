@@ -166,6 +166,7 @@ and then use them to remove unused imports.'''
 		sniffer.check_astroid_module(module_node, walker, [], [])
 
 		# Remove unneeded globals imported from fake code
+		# XXX Disabled due to an Astroid bug where module_node.globals is module_node.locals
 		# for name in sniffer.unused:
 		# 	if name in fake_node.globals and \
 		# 	  name in module_node.globals: #Maybe it's already deleted
