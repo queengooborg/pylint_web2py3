@@ -126,10 +126,12 @@ local_import = lambda name, reload=False, app=request.application:\
 	def _trasform_model(self, module_node):
 		'''Add globals from fake code + import code from previous (in alphabetical order) models'''
 		fake_code = self.fake_code + self._gen_models_import_code(module_node.name)
+		
 		fake = AstroidBuilder(MANAGER).string_build(fake_code)
 		module_node.locals.update(fake.globals)
 
 		module_node = self._remove_unused_imports(module_node, fake)
+		
 		return module_node
 
 	def _transform_controller(self, module_node):
