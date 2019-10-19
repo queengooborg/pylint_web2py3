@@ -125,7 +125,7 @@ local_import = lambda name, reload=False, app=request.application:\
 		fake_code = self.fake_code + models_import
 		
 		fake = AstroidBuilder(MANAGER).string_build(fake_code)
-		module_node.locals.update(fake.globals)
+		module_node.globals.update(fake.globals)
 
 		module_node = self._remove_unused_imports(module_node, fake)
 
@@ -168,8 +168,8 @@ and then use them to remove unused imports.'''
 		# Remove unneeded globals imported from fake code
 		# for name in sniffer.unused:
 		# 	if name in fake_node.globals and \
-		# 	  name in module_node.locals: #Maybe it's already deleted
-		# 		del module_node.locals[name]
+		# 	  name in module_node.globals: #Maybe it's already deleted
+		# 		del module_node.globals[name]
 
 		return module_node
 
