@@ -12,7 +12,7 @@ This plugin:
 - adds web2py module paths to PYTHONPATH
 '''
 
-VERSION_INFO = (0, 9, 0)
+VERSION_INFO = (0, 9, 1)
 __name__ = 'pylint_web2py3'
 __doc__ = 'pylint_web2py3 is a disciple of pylint-web2py and pylint_web2py2 with better web2py support'
 __author__ = ['Vinyl Darkscratch']
