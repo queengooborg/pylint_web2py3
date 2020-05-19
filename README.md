@@ -10,6 +10,21 @@ This plugin:
 - Adds definition of some predefined global objects to models and controllers
 - Adds web2py module paths to sys.path, so pylint is able to find them
 
+## Installation
+
+You can either install this plugin from Pip:
+
+```sh
+pip install pylint_web2py3
+```
+
+Or, you can install from source:
+```sh
+git clone https://github.com/vinyldarkscratch/pylint_web2py3
+cd pylint_web2py3
+python setup.py install
+```
+
 ## Enabling Plugin
 - Add `--load-plugins=pylint_web2py3` to pylint options
 or
