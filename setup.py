@@ -6,8 +6,6 @@ _packages = find_packages()
 
 with open('README.md') as f:
 	readme = f.read()
-with open('requirements.txt') as f:
-	requires = [line.strip() for line in f if line.strip()]
 
 setup(
 	name=pylint_web2py3.__name__,
@@ -24,6 +22,6 @@ setup(
 	keywords='pylint web2py plugin',
 	platforms=['any'],
 	packages=_packages,
-	install_requires=requires,
+	install_requires=['astroid>=2.2.0', 'pylint>=2.4.0'],
 	zip_safe=False,
 )
