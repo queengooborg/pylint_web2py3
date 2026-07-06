@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=70"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pylint_web2py3"
+version = "0.9.4"
+authors = [
+	{ name = "Vinyl Da.i'gyu-Kazotetsu", email = "queengooborg@gmail.com" }
+]
+description = "pylint_web2py3 is a Pylint plugin to help reduce false positives due to web2py implicit imports, and the successor of pylint-web2py and pylint_web2py2"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+	"Programming Language :: Python :: 3",
+	"Operating System :: OS Independent",
+	"Development Status :: 4 - Beta",
+	"Topic :: Software Development :: Debuggers",
+	"Topic :: Software Development :: Quality Assurance",
+	"Topic :: Software Development :: Testing",
+]
+license = "GPL-3.0-or-later"
+license-files=["LICENSE"]
+dependencies = [
+	"pylint>4.0.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/queengooborg/pylint_web2py3"
