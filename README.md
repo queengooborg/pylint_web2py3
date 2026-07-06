@@ -20,7 +20,7 @@ pip install pylint_web2py3
 
 Or, you can install from source:
 ```sh
-git clone https://github.com/vinyldarkscratch/pylint_web2py3
+git clone https://github.com/queengooborg/pylint_web2py3
 cd pylint_web2py3
 python setup.py install
 ```

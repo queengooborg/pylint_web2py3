@@ -15,11 +15,11 @@ This plugin:
 VERSION_INFO = (0, 9, 2)
 __name__ = 'pylint_web2py3'
 __doc__ = 'pylint_web2py3 is a disciple of pylint-web2py and pylint_web2py2 with better web2py support'
-__author__ = ['Vinyl Darkscratch']
+__author__ = ["Vinyl Da.i'gyu-Kazotetsu"]
 __version__ = '.'.join([str(i) for i in VERSION_INFO])
 __license__ = 'GPL'
-__maintainer__ = 'Vinyl Darkscratch'
-__email__ = ['vinyldarkscratch@gooborg.com']
+__maintainer__ = "Vinyl Da.i'gyu-Kazotetsu"
+__email__ = ['queengooborg@gmail.com']
 __status__ = 'Beta'
 
 import os

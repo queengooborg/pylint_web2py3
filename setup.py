@@ -9,7 +9,7 @@ with open('README.md') as f:
 
 setup(
 	name=pylint_web2py3.__name__,
-	url='https://github.com/vinyldarkscratch/pylint_web2py3',
+	url='https://github.com/queengooborg/pylint_web2py3',
 	version=pylint_web2py3.__version__,
 	description=pylint_web2py3.__doc__,
 	long_description=readme,
