@@ -22,6 +22,6 @@ setup(
 	keywords='pylint web2py plugin',
 	platforms=['any'],
 	packages=_packages,
-	install_requires=['astroid>=2.2.0', 'pylint>=2.4.0'],
+	install_requires=['pylint>=4.0.0'],
 	zip_safe=False,
 )
