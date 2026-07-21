@@ -24,9 +24,9 @@ from pylint.interfaces import UNDEFINED
 from pylint.utils import ASTWalker
 
 if os.sep == '\\':
-    web2py_pattern = r'(.+?)\\applications\\(.+?)\\(.+?)\\'
+	web2py_pattern = r'(.+?)\\applications\\(.+?)\\(.+?)\\'
 else:
-    web2py_pattern = r'(.+?)/applications/(.+?)/(.+?)/' 
+	web2py_pattern = r'(.+?)/applications/(.+?)/(.+?)/' 
 
 def register(_):
 	'''Register web2py transformer, called by pylint'''
@@ -102,12 +102,19 @@ local_import = lambda name, reload=False, app=request.application:\
 		'''Add web2py module paths models path to sys.path to be able to import it from the fake code'''
 		if not self.is_pythonpath_modified:
 			gluon_path = os.path.join(web2py_path, 'gluon')
+			gluon_packages_path = os.path.join(gluon_path, 'packages')
 			site_packages_path = os.path.join(web2py_path, 'site-packages')
 			app_modules_path = os.path.join(web2py_path, 'applications', app_name, 'modules')
 			app_models_path = os.path.join(web2py_path, 'applications', app_name, 'models') #Add models to import them them in controllers
 
 			for module_path in [gluon_path, site_packages_path, app_modules_path, app_models_path, web2py_path]:
 				sys.path.append(module_path)
+
+			for package in ["pydal", "yatl", "rocket3"]:
+				path = os.path.join(gluon_packages_path, "packages", package)
+				if path not in sys.path:
+					sys.path.append(path)
+				sys.modules[package] = builtins.__import__(package)
 
 			self._fill_app_model_names(app_models_path)
 
